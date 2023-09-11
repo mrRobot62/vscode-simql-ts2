@@ -1,0 +1,171 @@
+{
+  "name": "vscode-simql-ts",
+  "displayName": "vscode-simql-ts",
+  "description": "DQCar DSL SImpleQueryLanguage",
+  "publisher" : "DQCar",
+  "license" : "GPL-3.0",
+  "version": "0.6.0",
+  "icon": "simql.png",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "repository": "https://github.com/mrRobot62/vscode-simql",
+  "categories": [
+		"Programming Languages",
+		"Snippets",
+		"Other",
+		"Themes"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "simql-explorer",
+					"title": "SIMQ Explorer",
+					"icon": "resources/simql.svg"
+				}
+			]
+		},
+    "commands": [
+      {
+        "command": "simql.intro",
+        "title": "SIMQL Intro"
+      },
+      {
+        "command": "simql.howto",
+        "title": "SIMQL HowTo"
+      }  
+    ],
+
+	"views": {
+		"simql-explorer": [
+			{
+				"id": "simql-commands",
+				"name": "Commands",
+				"icon": "resources/zap-svgrepo-com.svg"
+			},
+			{
+				"id": "simql-logs",
+				"name": "Logfiles",
+				"icon": "resources/clipboard-2-svgrepo-com.svg"
+			},
+			{
+				"id": "simql-mmps",
+				"name": "MMP explore",
+				"icon": "resources/card-ok-svgrepo-com.svg"
+			},
+			{
+				"id": "simql-tutorials",
+				"name": "SIMQL tutorials",
+				"icon": "resources/learning-head-book-education-svgrepo-com.svg",
+				"type": "tree"
+			}
+		],
+		"simql-tutorials": [
+			{
+				"id": "simql-howtos-videos",
+				"name": "HowTo-Videos",
+				"icon": "resources/video-file-3-svgrepo-com.svg"
+			},
+			{
+				"id": "simql-howtos-doc",
+				"name": "HowTo-Docs",
+				"icon": "resources/education-book-learn-school-library-svgrepo-com.svg"
+			}
+		]
+	},
+	"grammars": [
+		{
+			"language": "simql",
+			"scopeName": "source.simql",
+			"path": "./syntaxes/simql-syntaxes.json",
+			"embeddedLanguages": {
+				"string.quoted": "jinja",
+				"meta.embedded.block.markdown": "markdown",
+				"meta.embedded.block.json": "json"
+			}
+		}
+	],
+	"languages": [
+		{
+			"id": "simql",
+			"aliases": [
+				"SIMQL"
+			],
+			"extensions": [
+				".simql"
+			],
+			"configuration": "./languages/simql.language-configuration.json"
+		}
+	],
+	"snippets": [
+		{
+			"language": "simql",
+			"path": "./snippets/snippets.code-snippets"
+		}
+	],
+	"themes": [
+		{
+			"label": "SIMQL-Color",
+			"uiTheme": "vs-dark",
+			"path": "./themes/simql-color-theme.json"
+		}
+	],
+	"taskDefinitions": [
+		{
+			"type": "rake",
+			"required": [
+				"task"
+			],
+			"properties": {
+				"task": {
+					"type": "string",
+					"description": "The Rake task to customize"
+				},
+				"file": {
+					"type": "string",
+					"description": "The Rake file that provides the task. Can be omitted."
+				}
+			}
+		},
+		{
+			"type": "custombuildscript",
+			"required": [
+				"flavor"
+			],
+			"properties": {
+				"flavor": {
+					"type": "string",
+					"description": "The build flavor. Should be either '32' or '64'."
+				},
+				"flags": {
+					"type": "array",
+					"description": "Additional build flags."
+				}
+			}
+		}
+]
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.82.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "eslint": "^8.47.0",
+    "glob": "^10.3.3",
+    "mocha": "^10.2.0",
+    "typescript": "^5.1.6",
+    "@vscode/test-electron": "^2.3.4"
+  }
+}

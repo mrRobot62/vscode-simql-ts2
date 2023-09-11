@@ -1,0 +1,119 @@
+{
+    "SIMQL_MMP" : {
+        "scope": "simql_mmp",
+        "prefix" : "simql_mmp",
+        "body" : [
+            "\"\"\"",
+            "Template-Description:\n"
+            "# MMP Template",
+            "",
+            "## Template-History",
+            "|date      |   author  | info ",
+            "|----------|-----------|--------------",
+            "|24.08.23  | cb2klqd   | VSCode extension SIMQL 0.6",
+            "",
+            "Shortcuts",
+            "| shortcut   | info                                  |",
+            "| ---------- | ------------------------------------- |",
+            "| simql_mmp  | create this template with placeholder |",
+            "| simql_ref  | create a measurement reference entry  |",
+            "| simql_var  | define a variable                     |",
+            "| simql_data | create a data command                 |",
+            "|            |                                       |",
+            "",
+            "\"\"\"",
+            "mmp ${1:id}",
+            "   \"\"\"",
+            "   _Please insert your MMP-Description her. You can use Markdown-Syntax for later documentation_",
+            "",
+            "   # Abstract",
+            "\n\n",
+            "   ## MMP-History",
+            "   |date      |   author  | info |",
+            "   |----------|-----------|--------------|",
+            "   | ${2:date}|${3:author}|${4:info}     |",
+            "\n\n",
+            "   # Details",
+            "\n\n",
+            "   \"\"\"",
+            "   register = \"${5:mmp_name}\"",
+            "",       
+            "   section references:",
+            "       reference r${6:ref1_id} with \"${7:ref1_name}\"",
+            "",       
+
+            "   section variables:",
+            "       define t0, tResult",
+            "",       
+
+            "   section logic:",
+            "       t0 = compute data(ref=[${8:ref1_id}], math=${9:math_op})",
+            "       ${0}",    
+               
+            "   section result:",
+            "       save tResult",
+            "",       
+
+            "end",
+            "",
+            "",
+            "",
+
+        ],
+        "description" : "MetaMeasurement Point - Template"
+    },
+    "SIMQL_REFERENCE" : {
+        "scope" : "simql_ref",
+        "prefix" : "simql_ref",
+        "description" : "create a measurement reference entry",
+        "body" : [
+            "reference ref_${1:ref_name} with \"${2:ref_id}\"",
+            "${0}"
+        ]
+    },
+    "SIMQL_VARIABLES" : {
+        "scope" : "simql_var",
+        "prefix" : "simql_var",
+        "description" : "define a variable",
+        "body" : [
+            "define ${1:var_name}",
+            "${0}"
+        ]
+    },
+    "SIMQL_DATA_DEFAULT" : {
+        "scope" : "simql_data_default",
+        "prefix" : "simql_data_default",
+        "description" : "use a data statement with default parameters",
+        "body" : [
+            "compute data (ref=[${1:pRef}], math=${2:pMath})",
+            "${0}"
+        ]
+    },
+    "SIMQL_DATA_REFDATE" : {
+        "scope" : "simql_data_refdate",
+        "prefix" : "simql_data_refdate",
+        "description" : "use a data statement with reference date",
+        "body" : [
+            "compute data (ref=[${1:pRef}],math=${2:pMath}, refdate=${3:pRefDate})",
+            "${0}"
+        ]
+    },
+    "SIMQL_REFDATE_CREF" : {
+        "scope" : "simql_CREF<offset>",
+        "prefix" : "imql_CREF<offset>",
+        "description" : "use a CREF constant with an offset",
+        "body" : [
+            "CREF${1:cref}",
+            "${0}"
+        ]
+    },
+    "SIMQL_CALC" : {
+        "scope" : "simql_CALC",
+        "prefix" : "simql_CALC",
+        "description" : "compute calc statement",
+        "body" : [
+            "compute calc (vars=[${1:pVars}, expr=${2:pExpr}]",
+            "${0}"
+        ]
+    },
+}

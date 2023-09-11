@@ -1,0 +1,57 @@
+"""
+Template-Description:
+
+# MMP Template
+
+## Template-History
+|date      |   author  | info 
+|----------|-----------|--------------
+|24.08.23  | cb2klqd   | VSCode extension SIMQL 0.6
+
+Shortcuts
+| shortcut   | info                                  |
+| ---------- | ------------------------------------- |
+| simql_mmp  | create this template with placeholder |
+| simql_ref  | create a measurement reference entry  |
+| simql_var  | define a variable                     |
+| simql_data | create a data command                 |
+|            |                                       |
+
+"""
+mmp id
+   """
+   _Please insert your MMP-Description her. You can use Markdown-Syntax for later documentation_
+
+   # Abstract
+
+
+
+   ## MMP-History
+   |date      |   author  | info |
+   |----------|-----------|--------------|
+   | date|author|info     |
+
+
+
+   # Details
+
+
+
+   """
+   register = "mmp_name"
+
+   section references:
+       reference rref1_id with "ref1_name"
+
+   section variables:
+       define t0, tResult
+
+   section logic:
+       t0 = compute data(ref=[ref1_id], math=math_op)
+       
+   section result:
+       save tResult
+
+end
+
+

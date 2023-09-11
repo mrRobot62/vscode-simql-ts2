@@ -1,0 +1,226 @@
+{
+    "name": "simql",
+    "scopeName": "source.simql",
+    "patterns": [
+        {"include": "#common"}
+    ],   
+    "repository": {
+        "common": {
+            "patterns": [
+                {"include": "#comment"},
+                {"include": "#common_language"},
+                {"inlcude": "#common_language_doc"}
+            ]
+        },
+        "common_language": {
+            "patterns": [
+                {"include": "#basetypes"},
+                {"include": "#constants"},
+                {"include": "#language_keywords"},
+                {"include": "#language_sections"},
+                {"include": "#language_entry"},
+                {"include": "#language_command_param"},
+                {"include": "#language_command_param_list"},
+                {"include": "#language_symbols"}
+
+            ]
+        },
+        "common_language_doc": {
+            "patterns" : [
+                {"include": "#section_title"},
+                {"include": "#section_docd"}
+            ]
+        },
+        "comment":{
+            "patterns": [
+                {
+                    "name": "comment.line",
+                    "match": "#.*$"
+                },
+                {
+                    "name": "comment.block",
+                    "begin": "\"\"\"",
+                    "end": "\"\"\""
+                }
+            ]
+        },
+        "basetypes": {
+            "patterns": [
+                {"include": "#commands"},
+                {"include": "#data_params"},
+                {"include": "#string"},
+                {"include": "#number"}
+            ]
+        },
+        "commands" : {
+            "match": "(register|reference|with|define|compute|data|calc|save|percent|percent2)",
+            "name": "command.language"
+        },
+        "data_params" : {
+            "patterns" : [
+                {"include" : "#paramRefs"},
+                {"include" : "#paramVars"},
+                {"include" : "#paramMath"},
+                {"include" : "#paramRefDate"},
+                {"include" : "#paramReturn"},
+                {"include" : "#paramExpression"},
+                {"include" : "#paramRange"}
+            ]
+        },
+        "paramRefs" : {
+            "patterns" : [
+                {
+                    "match" : "refs=",
+                    "name" : "command.language.parameter"
+                },
+                {
+                    "match": "\\[.*\\]",
+                    "name": "variable.language"
+                }
+            ]
+        },
+        "paramVars" : {
+            "patterns" : [
+                {
+                    "match" : "vars=",
+                    "name" : "command.language.parameter"
+                },
+                {
+                    "match": "\\[.*\\]",
+                    "name": "variable.language"
+                }
+            ]
+        },        "paramMath" : {
+            "patterns" : [
+                {
+                    "match" : "math=",
+                    "name" : "command.language.parameter"
+                },
+                {
+                    "match": "AGG|SUM|STDDEV|IQR|ZSCORE|MIN|MAX",
+                    "name": "variable.language"
+                }
+            ]
+        },
+        "paramRefDate" : {
+            "patterns" : [
+                {
+                    "match" : "refdate=",
+                    "name" : "command.language.parameter"
+                },
+                {
+                    "match": "CREF(-[1-3])?|QREF(-[1-3])?|QUARTER|HREF(-[1-2])?|YREF(-[1-3])?|TODAY(-[0-9]{1,3})?",
+                    "name": "variable.language"
+                }
+            ]
+        },
+        "paramRange" : {
+            "patterns" : [
+                {
+                    "match" : "range=",
+                    "name" : "command.language.parameter"
+                },
+                {
+                    "match": "ALL|LAST|LATEST|FIRST|all|last|latest|first",
+                    "name": "variable.language"
+                }
+            ]
+        },
+        "paramExpression" : {
+            "patterns" : [
+                {
+                    "match" : "expr=",
+                    "name" : "command.language.parameter"
+                }
+            ]
+        },        
+
+        "string": {
+            "patterns": [
+                {
+                    "name": "string.quoted.triple",
+                    "begin":"'''",
+                    "end": "'''"
+                },
+                {
+                    "begin": "'",
+                    "end": "'",
+                    "name": "string.quoted.single",
+					"patterns": [
+						{"include": "source.jinja"}
+					]
+                },
+                {
+                    "begin": "\"",
+                    "end": "\"",
+                    "name": "string.quoted.double",
+					"patterns": [
+						{"include": "source.jinja"}
+					]
+                }
+            ]
+        },
+
+        "number": {
+            "name": "constant.numeric.simql",
+            "match": " [0-9.]+ "    
+        },
+        "language_sections" :{
+            "match": "section (references|variables|logic|result)\\b:$",
+            "name": "entity.name.tag.underline"
+        },
+        "language_entry" :{
+            "patterns" : [
+                {
+                    "match": "mmp .*$",
+                    "name": "entity.name.tag"
+                },
+                {
+                    "match": "end$",
+                    "name": "entity.name.tag"
+                }
+
+            ]
+        },
+        "language_symbols" :{
+            "patterns" : [
+                {
+                    "match": "[.*]",
+                    "name" : "entity.other.attribute-name"
+                }
+            ]
+        },
+
+
+        "language_operation": {
+            "match": "\\|(-*\\+)*-+\\||==|->|\\.\\.|<=|>=|!=|:|<|\\*|\\+|\\]|>|\\.|\\(|/|\\[|=|-|,|\\||\\)",
+            "name": "keyword.other"
+        },
+        
+        "table": {
+            "begin": "^\\s*(\\|.*)$",
+            "beginCaptures": {
+                "1": {"name": "markup.heading"}
+            },
+            "end": "^\\s*$",
+            "contentName": "meta.embedded.block.markdown",
+            "patterns": [
+                {
+                    "match": "^\\s*(\\|-.*)$",
+                    "name": "markup.heading"
+                },
+                {
+                    "begin": "^\\s*(\\|)[^-]",
+                    "beginCaptures": {
+                        "1": {"name": "markup.heading"}
+                    },
+                    "end": "$",
+                    "patterns": [
+                        {"include": "#common_nocomments"}
+                    ]
+                }
+            ]
+        }
+
+    }
+}
